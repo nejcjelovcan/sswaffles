@@ -1,4 +1,5 @@
-Simple Storage Waffels
-Amazon S3 Simple Storage Service, without the service, with extra waffels
+Simple Storage Waffles
+Amazon S3 Simple Storage Service, without the service, with extra waffles
 
-This is a library that will substitute AWS::S3 instance with a custom-backend equivalent (disk or memory)
+Will substitute AWS::S3 instance with a custom-backend equivalent (disk or memory)
+y
