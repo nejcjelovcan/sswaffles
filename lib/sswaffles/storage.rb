@@ -21,10 +21,10 @@ module SSWaffles
       @bucket_type = if bucket_type.is_a?(Class) && bucket_type < Bucket
         bucket_type
       else
-        Object.const_get("SSWaffles::#{bucket_type}Bucket")
+        Object.const_get("SSWaffles::#{bucket_type.to_s.capitalize}Bucket")
       end
       @options = options
-      @s3 = options[:s3]
+      @s3 = options.fetch(:s3, options.fetch('s3', nil))
       @buckets = bucket_type.nil? ? @s3.buckets : BucketCollection.new(self)
     end
 

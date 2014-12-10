@@ -1,9 +1,12 @@
+require 'addressable/uri'
+require 'json'
+
 module SSWaffles
 
   class DiskBucket < Bucket
     def initialize(name, storage)
       super
-      raise "Basedir option needed for DiskBucket" unless storage.options[:basedir]
+      raise "Basedir option needed for DiskBucket" if basedir.nil?
       begin
         warmup(JSON.parse(File.open(key_file).read))
       rescue
@@ -11,12 +14,16 @@ module SSWaffles
       end
     end
 
+    def basedir
+      storage.options.fetch(:basedir, storage.options.fetch('basedir', nil))
+    end
+
     def clean_key key
       CGI.escape(Addressable::URI.escape(key))
     end
 
     def bucket_dir
-      File.join storage.options[:basedir], clean_key(name)
+      File.join basedir, clean_key(name)
     end
 
     def key_file

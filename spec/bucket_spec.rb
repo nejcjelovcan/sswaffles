@@ -2,7 +2,7 @@ require 'rspec/autorun'
 require './lib/sswaffles.rb'
 
 describe 'MemoryBucket' do
-  #let(:storage) { Storage.new DiskBucket, basedir: './working/' }
+  #let(:storage) { SSWaffles::Storage.new :Disk, basedir: './working/' }
   let(:storage) { SSWaffles::Storage.new }
   let(:bucket) { storage.buckets['bucket'] }
 
