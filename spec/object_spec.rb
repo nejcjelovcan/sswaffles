@@ -1,5 +1,5 @@
 require 'rspec/autorun'
-require './lib/storage.rb'
+require './lib/sswaffles.rb'
 
 describe 'S3Object' do
   let(:object) { SSWaffles::S3Object.new 'key', nil }

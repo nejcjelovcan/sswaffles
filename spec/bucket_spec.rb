@@ -1,5 +1,5 @@
 require 'rspec/autorun'
-require './lib/storage.rb'
+require './lib/sswaffles.rb'
 
 describe 'MemoryBucket' do
   #let(:storage) { Storage.new DiskBucket, basedir: './working/' }

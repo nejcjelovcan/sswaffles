@@ -1,5 +1,5 @@
 require 'rspec/autorun'
-require './lib/storage.rb'
+require './lib/sswaffles.rb'
 
 describe 'ObjectCollection' do
   let(:objects) { SSWaffles::Storage.new(:Memory).buckets['name'].objects }

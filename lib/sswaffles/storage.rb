@@ -1,10 +1,10 @@
-require './lib/bucketcollection.rb'
-require './lib/bucket.rb'
-require './lib/objectcollection.rb'
-require './lib/object.rb'
-require './lib/backends/memory.rb'
-require './lib/backends/disk.rb'
-require './lib/backends/amazonreadonly.rb'
+require './lib/sswaffles/bucketcollection.rb'
+require './lib/sswaffles/bucket.rb'
+require './lib/sswaffles/objectcollection.rb'
+require './lib/sswaffles/object.rb'
+require './lib/sswaffles/backends/memory.rb'
+require './lib/sswaffles/backends/disk.rb'
+require './lib/sswaffles/backends/amazonreadonly.rb'
 
 module SSWaffles
 

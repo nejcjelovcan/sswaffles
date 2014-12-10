@@ -4,8 +4,7 @@ Gem::Specification.new do |s|
   s.date          = '2014-12-09'
   s.summary       = 'AWS S3 replacement'
   s.description   = 'Waffles'
-  s.files         = ["lib/storage.rb", "lib/bucketcollection.rb", "lib/bucket.rb", "lib/objectcollection.rb",
-                     "lib/object.rb", "lib/backends/memory.rb", "lib/backends/disk.rb", "lib/backends/amazonreadonly.rb"]
+  s.files         = Dir["./lib/**/*"].select { |file| file =~ /\.rb$/ }
   s.authors       = ['Nejc Jelovčan']
   s.homepage      = ''
   s.license       = 'MIT'

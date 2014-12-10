@@ -1,5 +1,5 @@
 require 'rspec/autorun'
-require './lib/storage.rb'
+require './lib/sswaffles.rb'
 
 describe 'Storage' do
   let(:storage) { SSWaffles::Storage.new :Memory }
