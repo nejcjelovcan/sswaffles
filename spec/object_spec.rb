@@ -12,7 +12,11 @@ describe 'S3Object' do
     object.acl.should be_a(Hash)
   end
 
-  it '#public_url returns a string' do
+  it '#public_url returns a String' do
     object.public_url.should be_a(String)
+  end
+
+  it '#last_modified returns a Time' do
+    object.last_modified.should be_a(Time)
   end
 end

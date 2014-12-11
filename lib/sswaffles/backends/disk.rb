@@ -1,5 +1,7 @@
 require 'addressable/uri'
 require 'json'
+require 'digest'
+require 'cgi'
 
 module SSWaffles
 
@@ -10,12 +12,8 @@ module SSWaffles
       begin
         warmup(JSON.parse(File.open(key_file).read))
       rescue
-        puts "DiskBucket: Could not load keyfile"
+        puts "DiskBucket: Could not load keyfile #{key_file}"
       end
-    end
-
-    def basedir
-      storage.options.fetch(:basedir, storage.options.fetch('basedir', nil))
     end
 
     def clean_key key
@@ -30,23 +28,17 @@ module SSWaffles
       File.join bucket_dir, "_keys.json"
     end
 
-    def object_filename key
-      key = clean_key(key)
-      hash = Digest::SHA1.hexdigest key
-      File.join hash[0..1], hash[2..3], key.slice(0,225)
-    end
-
     def bucket_object_filename key
       File.join bucket_dir, object_filename(key)
-    end
-
-    def assure_dir key_file
-      FileUtils.mkdir_p File.dirname(key_file)
     end
 
     def keys_changed(key, data=nil)
       # we should write the keys to disk
       File.write(key_file, JSON.generate(objects.keys))
+    end
+
+    def assure_dir key_file
+      FileUtils.mkdir_p File.dirname(key_file)
     end
 
     class BucketObject < S3Object
@@ -75,7 +67,24 @@ module SSWaffles
       def exists?
         File.exists? key_file
       end
+
+      def last_modified
+        File.mtime key_file
+      end
     end
+
+    private
+
+    def basedir
+      storage.options.fetch(:basedir, storage.options.fetch('basedir', nil))
+    end
+
+    def object_filename key
+      key = clean_key(key)
+      hash = Digest::SHA1.hexdigest key
+      File.join hash[0..1], hash[2..3], key.slice(0,225)
+    end
+
   end
 
 end

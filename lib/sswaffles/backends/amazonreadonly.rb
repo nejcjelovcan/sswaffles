@@ -25,6 +25,10 @@ module SSWaffles
         bucket.s3bucket.objects[key].exists?
       end
 
+      def last_modified
+        bucket.s3bucket.objects[key].last_modified
+      end
+
     end
   end
 
