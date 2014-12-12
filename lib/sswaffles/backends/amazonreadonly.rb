@@ -18,7 +18,7 @@ module SSWaffles
     end
 
     def object_delete obj
-      puts "WILL NOT DELETE #{key}"
+      puts "WILL NOT DELETE #{obj.key}"
     end
 
     def object_exists? obj

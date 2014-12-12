@@ -22,7 +22,7 @@ module SSWaffles
     def object_exists? obj; raise 'Not implemented'; end
     def object_last_modified obj; raise 'Not implemented'; end
 
-    def object_public_url obj; "fakestorage://#{obj.key}"; end
+    def object_public_url obj; "sswaffles://#{name}/#{obj.key}"; end
     def object_acl obj; {}; end
 
   end
