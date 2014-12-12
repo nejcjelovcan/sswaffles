@@ -13,7 +13,7 @@ module SSWaffles
   #   nil               default S3 API is used (needs s3 instance as :s3 options)
   #   :Memory           buckets are in-memory hashes of key=>value
   #   :Disk             buckets are folders on disk with keys in subfolders (needs :basedir option)
-  #   :AmazonReadonly   buckets on S3 are used for reading, writing is ignored (needs s3 instance as :s3 option)
+  #   :Amazonreadonly   buckets on S3 are used for reading, writing is ignored (needs s3 instance as :s3 option)
   class Storage
     attr_reader :buckets, :bucket_type, :options, :s3
 
@@ -30,10 +30,6 @@ module SSWaffles
 
     def Bucket
       @bucket_type
-    end
-
-    def BucketObject
-      @bucket_type::BucketObject
     end
 
     def import_bucket other_storage, bucket_name, options = {}, &block

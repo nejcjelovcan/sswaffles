@@ -2,6 +2,7 @@ require 'forwardable'
 
 module SSWaffles
 
+  # @TODO .delete is inherited from Hash but should adhere to S3::ObjectCollection - .delete(*objects)
   class ObjectCollection < Hash
     attr_reader :bucket
     alias_method :old_get, :[]
@@ -14,9 +15,9 @@ module SSWaffles
       @bucket = bucket
     end
 
-    def [](key) # @TODO cache objects?
+    def [](key)
       unless include?(key)
-        @bucket.storage.BucketObject.new key, @bucket
+        S3Object.new key, @bucket
       else
         old_get key
       end

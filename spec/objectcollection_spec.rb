@@ -5,7 +5,7 @@ describe 'ObjectCollection' do
   let(:objects) { SSWaffles::Storage.new(:Memory).buckets['name'].objects }
 
   it 'has an object' do
-    objects['test'].should be_a(SSWaffles::MemoryBucket::BucketObject)
+    objects['test'].should be_a(SSWaffles::S3Object)
   end
 
   it 'creates an object' do

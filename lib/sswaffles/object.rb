@@ -9,15 +9,15 @@ module SSWaffles
       @key = key
     end
 
-    def read; raise 'Not Implemented'; end
-    def write(val, options={}); raise 'Not Implemented'; end
-    def exists?; raise 'Not Implemented'; end
-    def delete; raise 'Not Implemented'; end
-    def last_modified; Time.new; end
+    def read; bucket.object_read self; end
+    def write(val, options={}); bucket.object_write self, val, options; end
+    def exists?; bucket.object_exists? self; end
+    def delete; bucket.object_delete self; end
+    def last_modified; bucket.object_last_modified self; end
+    def acl; bucket.object_acl self; end
+    def public_url; bucket.object_public_url self; end
 
-    def public_url; "fakestorage://#{key}"; end
-    def acl; {}; end
-    def to_s; "#{self.class}:#{bucket.name}/#{key}"; end
+    def to_s; "#{bucket.class}:#{bucket.name}/#{key}"; end
   end
 
 end
