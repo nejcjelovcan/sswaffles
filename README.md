@@ -1,4 +1,4 @@
-# Simple Storage Waffles
+# Simple Storage Waffles [![Build Status](https://travis-ci.org/nejcjelovcan/sswaffles.svg?branch=master)](https://travis-ci.org/nejcjelovcan/sswaffles)
 
 Will substitute Amazon S3 Simple Storage Service (AWS::S3) instance with a custom-backend equivalent (disk, memory, mongo or readonly restricted AWS::S3)
 
