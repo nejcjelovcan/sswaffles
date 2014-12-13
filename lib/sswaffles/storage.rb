@@ -14,7 +14,7 @@ module SSWaffles
       @bucket_type = if bucket_type.is_a?(Class) && bucket_type < Bucket
         bucket_type
       else
-        Object.const_get("SSWaffles::#{bucket_type.to_s.capitalize}Bucket")
+        SSWaffles.const_get("#{bucket_type.to_s.capitalize}Bucket")
       end
       @global = {}
       @options = options
