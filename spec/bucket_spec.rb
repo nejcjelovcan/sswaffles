@@ -158,7 +158,7 @@ describe SSWaffles::MemoryBucket do
   it_behaves_like :WritableBucket
 end
 
-describe SSWaffles::AmazonreadonlyBucket do
+describe SSWaffles::AmazonreadonlyBucket, :integration => true do
   before(:all) do
     @storage = SSWaffles::Storage.new :Amazonreadonly, s3: SSWaffles::Storage.new(:Memory)
   end
