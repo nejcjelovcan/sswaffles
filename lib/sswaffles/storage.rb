@@ -1,12 +1,3 @@
-require 'sswaffles/bucketcollection.rb'
-require 'sswaffles/bucket.rb'
-require 'sswaffles/objectcollection.rb'
-require 'sswaffles/object.rb'
-require 'sswaffles/backends/memory.rb'
-require 'sswaffles/backends/disk.rb'
-require 'sswaffles/backends/mongo.rb'
-require 'sswaffles/backends/amazonreadonly.rb'
-
 module SSWaffles
 
   # Storage abstracts out different storage systems (S3, memory, disk, mongo)

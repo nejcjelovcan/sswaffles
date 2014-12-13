@@ -9,4 +9,7 @@ Gem::Specification.new do |s|
   s.homepage      = ''
   s.license       = 'MIT'
   s.require_paths = ["lib"]
+  s.add_runtime_dependency 'addressable', '~> 2'
+  s.add_runtime_dependency 'mongo', '~> 1'
+  s.add_runtime_dependency 'bson_ext', '~> 1'
 end

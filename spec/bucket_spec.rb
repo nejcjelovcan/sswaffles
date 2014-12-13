@@ -151,7 +151,7 @@ end
 
 describe SSWaffles::MemoryBucket do
   before(:all) do
-    @storage = SSWaffles::Storage.new
+    @storage = SSWaffles::Storage.new :Memory
   end
 
   it_behaves_like :ReadableBucket
