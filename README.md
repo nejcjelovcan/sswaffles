@@ -7,10 +7,10 @@ s3 = SSWaffles::Storage.new :Disk, basedir: './s3/'
 s3.buckets['bucketname'].objects['test.png'].read
 ```
 
-## SSWaffles::Storage(bucket_type, options = {})
+## SSWaffles::Storage.new bucket_type, options = {}
 |bucket_type|-
 |------------|--------
-|nil               |default S3 API is used (needs s3 instance as :s3 options)
+|nil               |default S3 API is used (needs s3 instance as :s3 option)
 |:Memory           |buckets are in-memory hashes of key=>value
 |:Disk             |buckets are folders on disk with keys in subfolders (basedir: ./s3/)
 |:Mongo            |buckets are collections in a mongo db, (host: localhost, port: 27017, db: 'sswaffles')

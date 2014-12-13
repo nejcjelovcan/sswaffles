@@ -123,7 +123,7 @@ shared_examples_for :ObjectCollection do
   end
 end
 
-describe SSWaffles::DiskBucket do
+describe SSWaffles::DiskBucket, :integration => true do
   before(:all) do
     @storage = SSWaffles::Storage.new :Disk, basedir: './test_s3/'
   end
@@ -136,22 +136,22 @@ describe SSWaffles::DiskBucket do
   it_behaves_like :WritableBucket
 end
 
-describe SSWaffles::MemoryBucket do
-  before(:all) do
-    @storage = SSWaffles::Storage.new
-  end
-
-  it_behaves_like :ReadableBucket
-  it_behaves_like :WritableBucket
-end
-
-describe SSWaffles::MongoBucket do
+describe SSWaffles::MongoBucket, :integration => true do
   before(:all) do
     @storage = SSWaffles::Storage.new :Mongo, db: 'sswaffles_test'
   end
 
   after(:all) do
     @storage.global[:client].drop_database('sswaffles_test')
+  end
+
+  it_behaves_like :ReadableBucket
+  it_behaves_like :WritableBucket
+end
+
+describe SSWaffles::MemoryBucket do
+  before(:all) do
+    @storage = SSWaffles::Storage.new
   end
 
   it_behaves_like :ReadableBucket
