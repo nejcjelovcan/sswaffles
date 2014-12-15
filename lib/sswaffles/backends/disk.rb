@@ -8,7 +8,7 @@ module SSWaffles
   class DiskBucket < Bucket
     def initialize(name, storage)
       super
-      raise "Basedir option needed for DiskBucket" if basedir.nil?
+      @basedir = storage.options.fetch(:basedir, storage.options.fetch('basedir', './s3/'))
       begin
         warmup(JSON.parse(File.open(key_file).read))
       rescue
@@ -48,7 +48,7 @@ module SSWaffles
     end
 
     def bucket_dir
-      File.join basedir, clean_key(name)
+      File.join @basedir, clean_key(name)
     end
 
     def key_file
@@ -71,10 +71,6 @@ module SSWaffles
     end
 
     private
-
-    def basedir
-      storage.options.fetch(:basedir, storage.options.fetch('basedir', nil))
-    end
 
   end
 end

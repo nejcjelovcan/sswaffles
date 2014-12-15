@@ -38,7 +38,7 @@ module SSWaffles
 
     def keys_changed(key=nil, data=nil)
       @collection.find({}, fields: {_id: true})
-        .map { |doc| doc['value'] }
+        .map { |doc| doc['_id'] }
         .each { |k| objects.create(k, nil, warmup: true) }
     end
 
