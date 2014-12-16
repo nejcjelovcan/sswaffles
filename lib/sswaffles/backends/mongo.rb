@@ -19,7 +19,7 @@ module SSWaffles
     end
 
     def object_write obj, data, options={}
-      payload = {_id: obj.key, value: data, last_modified: Time.new}
+      payload = {_id: obj.key, value: data, last_modified: Time.new, metadata: options.fetch(:metadata, {})}
       obj.exists? ? @collection.update(id_hash(obj), payload) : @collection.insert(payload)
     end
 
@@ -34,6 +34,10 @@ module SSWaffles
 
     def object_last_modified obj
       find_one(obj)['last_modified']
+    end
+
+    def object_metadata obj, key
+      find_one(obj).fetch('metadata', {})[key]
     end
 
     def keys_changed(key=nil, data=nil)

@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'sswaffles'
-  s.version       = '0.1.2'
+  s.version       = '0.1.3'
   s.date          = '2014-12-09'
   s.summary       = 'AWS S3 replacement'
   s.description   = 'Waffles'

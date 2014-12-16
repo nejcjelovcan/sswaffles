@@ -85,6 +85,20 @@ shared_examples_for :ImmutableBucket do
   end
 end
 
+shared_examples_for :MetadataBucket do
+
+  before(:all) do
+    @bucket = @storage.buckets['bucket']
+  end
+
+  it 'writes etag metadata and reads it back again' do
+    object = @bucket.objects['object1']
+    object.write 'test', metadata: {etag: 'etagetag'}
+    object.etag.should eq('etagetag')
+  end
+
+end
+
 shared_examples_for :ObjectCollection do
   before(:all) do
     @objects = @storage.buckets['bucket'].objects
@@ -147,6 +161,7 @@ describe SSWaffles::MongoBucket, :integration => true do
 
   it_behaves_like :ReadableBucket
   it_behaves_like :WritableBucket
+  it_behaves_like :MetadataBucket
 end
 
 describe SSWaffles::MemoryBucket do
