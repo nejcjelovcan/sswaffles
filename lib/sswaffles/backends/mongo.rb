@@ -36,8 +36,9 @@ module SSWaffles
       find_one(obj)['last_modified']
     end
 
-    def object_metadata obj, key
-      find_one(obj).fetch('metadata', {})[key]
+    def object_metadata obj, key=nil
+      meta = find_one(obj).fetch('metadata', {})
+      key.nil? ? meta : meta[key]
     end
 
     def keys_changed(key=nil, data=nil)

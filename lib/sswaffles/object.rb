@@ -17,6 +17,7 @@ module SSWaffles
     def acl; bucket.object_acl self; end
     def public_url; bucket.object_public_url self; end
     def etag; bucket.object_metadata self, 'etag'; end
+    def metadata; bucket.object_metadata self; end
 
     def to_s; "#{bucket.class}:#{bucket.name}/#{key}"; end
   end

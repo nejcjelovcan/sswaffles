@@ -91,6 +91,12 @@ shared_examples_for :MetadataBucket do
     @bucket = @storage.buckets['bucket']
   end
 
+  it 'has metadata' do
+    object = @bucket.objects['object1']
+    object.write 'test', metadata: {test: '1'}
+    object.metadata.should eq({'test' => '1'})
+  end
+
   it 'writes etag metadata and reads it back again' do
     object = @bucket.objects['object1']
     object.write 'test', metadata: {etag: 'etagetag'}
