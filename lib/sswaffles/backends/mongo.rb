@@ -15,10 +15,12 @@ module SSWaffles
     end
 
     def object_read obj
-      find_one(obj)['value']
+      value = find_one(obj)['value']
+      value.is_a?(BSON::Binary) ? value.to_s : value
     end
 
     def object_write obj, data, options={}
+      data = BSON::Binary.new(data) if options[:content_encoding] == 'gzip'
       payload = {_id: obj.key, value: data, last_modified: Time.new, metadata: options.fetch(:metadata, {})}
       obj.exists? ? @collection.update(id_hash(obj), payload) : @collection.insert(payload)
     end

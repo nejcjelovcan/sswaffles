@@ -1,3 +1,5 @@
+require 'zlib'
+
 require 'rspec/autorun'
 require './lib/sswaffles.rb'
 
@@ -105,6 +107,25 @@ shared_examples_for :MetadataBucket do
 
 end
 
+shared_examples_for :EncodingBucket do
+  before(:all) do
+    @bucket = @storage.buckets['bucket']
+  end
+
+  it 'writes gzip data and reads it back again' do
+    data = 'testtest'
+    sio = StringIO.new
+    gz = Zlib::GzipWriter.new(sio)
+    gz.write(data); gz.close
+
+    object = @bucket.objects['object1']
+    object.write sio.string, content_type: 'text/plain', content_encoding: 'gzip'
+
+    Zlib::GzipReader.new(StringIO.new(object.read)).read.force_encoding('utf-8').should eq(data)
+  end
+
+end
+
 shared_examples_for :ObjectCollection do
   before(:all) do
     @objects = @storage.buckets['bucket'].objects
@@ -154,6 +175,7 @@ describe SSWaffles::DiskBucket, :integration => true do
 
   it_behaves_like :ReadableBucket
   it_behaves_like :WritableBucket
+  it_behaves_like :EncodingBucket
 end
 
 describe SSWaffles::MongoBucket, :integration => true do
@@ -168,6 +190,7 @@ describe SSWaffles::MongoBucket, :integration => true do
   it_behaves_like :ReadableBucket
   it_behaves_like :WritableBucket
   it_behaves_like :MetadataBucket
+  it_behaves_like :EncodingBucket
 end
 
 describe SSWaffles::MemoryBucket do
@@ -177,6 +200,7 @@ describe SSWaffles::MemoryBucket do
 
   it_behaves_like :ReadableBucket
   it_behaves_like :WritableBucket
+  it_behaves_like :EncodingBucket
 end
 
 describe SSWaffles::AmazonreadonlyBucket do
