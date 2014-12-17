@@ -135,6 +135,10 @@ shared_examples_for :PermissionBucket do
     @object.acl.grant(:read).to(:group_uri => 'http://acs.amazonaws.com/groups/global/AllUsers')
   end
 
+  it 'can set .acl' do
+    @object.acl = SSWaffles::AccessControlList.new
+  end
+
 end
 
 
@@ -176,7 +180,7 @@ shared_examples_for :ObjectCollection do
   end
 end
 
-describe SSWaffles::DiskBucket, :integration => true do
+describe SSWaffles::DiskBucket do
   before(:all) do
     @storage = SSWaffles::Storage.new :Disk, basedir: './test_s3/'
   end
@@ -190,22 +194,6 @@ describe SSWaffles::DiskBucket, :integration => true do
   it_behaves_like :EncodingBucket
   it_behaves_like :PermissionBucket
 
-end
-
-describe SSWaffles::MongoBucket, :integration => true do
-  before(:all) do
-    @storage = SSWaffles::Storage.new :Mongo, db: 'sswaffles_test'
-  end
-
-  after(:all) do
-    @storage.global[:client].drop_database('sswaffles_test')
-  end
-
-  it_behaves_like :ReadableBucket
-  it_behaves_like :WritableBucket
-  it_behaves_like :MetadataBucket
-  it_behaves_like :EncodingBucket
-  it_behaves_like :PermissionBucket
 end
 
 describe SSWaffles::MemoryBucket do
@@ -226,4 +214,20 @@ describe SSWaffles::AmazonreadonlyBucket do
 
   it_behaves_like :ReadableBucket
   it_behaves_like :ImmutableBucket
+end
+
+describe SSWaffles::MongoBucket, :integration => true do
+  before(:all) do
+    @storage = SSWaffles::Storage.new :Mongo, db: 'sswaffles_test'
+  end
+
+  after(:all) do
+    @storage.global[:client].drop_database('sswaffles_test')
+  end
+
+  it_behaves_like :ReadableBucket
+  it_behaves_like :WritableBucket
+  it_behaves_like :MetadataBucket
+  it_behaves_like :EncodingBucket
+  it_behaves_like :PermissionBucket
 end

@@ -25,6 +25,7 @@ module SSWaffles
 
     def object_public_url obj; "sswaffles://#{name}/#{obj.key}"; end
     def object_acl obj; AccessControlList.new; end
+    def object_acl_set obj, val; AccessControlList.new; end
 
   end
 

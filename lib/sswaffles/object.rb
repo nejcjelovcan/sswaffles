@@ -15,6 +15,7 @@ module SSWaffles
     def delete; bucket.object_delete self; end
     def last_modified; bucket.object_last_modified self; end
     def acl; bucket.object_acl self; end
+    def acl=(val); bucket.object_acl_set self, val; end
     def public_url; bucket.object_public_url self; end
     def etag; bucket.object_metadata self, 'etag'; end
     def metadata; bucket.object_metadata self; end
