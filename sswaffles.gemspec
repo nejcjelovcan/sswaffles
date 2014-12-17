@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'sswaffles'
-  s.version       = '0.1.4'
+  s.version       = '0.1.5'
   s.date          = '2014-12-09'
   s.summary       = 'AWS S3 replacement'
   s.description   = 'Waffles'
@@ -12,4 +12,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'addressable', '~> 2'
   s.add_runtime_dependency 'mongo', '~> 1'
   s.add_runtime_dependency 'bson_ext', '~> 1'
+  s.add_runtime_dependency 'naught', '~> 1'
 end

@@ -21,11 +21,6 @@ shared_examples_for :ReadableBucket do
     object.key.should be_a(String)
   end
 
-  it 'object has acl' do
-    object = @bucket.objects['object1']
-    object.acl.should be_a(Hash)
-  end
-
   it 'object has String public_url' do
     object = @bucket.objects['object1']
     object.public_url.should be_a(String)
@@ -126,6 +121,23 @@ shared_examples_for :EncodingBucket do
 
 end
 
+shared_examples_for :PermissionBucket do
+  before(:all) do
+    @bucket = @storage.buckets['bucket']
+    @object = @bucket.objects['object']
+  end
+
+  it 'has .acl which is an AccessControlList instance' do
+    @object.acl.should be_a(SSWaffles::AccessControlList)
+  end
+
+  it 'can call .grant(:read).to(:user) on .acl' do
+    @object.acl.grant(:read).to(:group_uri => 'http://acs.amazonaws.com/groups/global/AllUsers')
+  end
+
+end
+
+
 shared_examples_for :ObjectCollection do
   before(:all) do
     @objects = @storage.buckets['bucket'].objects
@@ -176,6 +188,8 @@ describe SSWaffles::DiskBucket, :integration => true do
   it_behaves_like :ReadableBucket
   it_behaves_like :WritableBucket
   it_behaves_like :EncodingBucket
+  it_behaves_like :PermissionBucket
+
 end
 
 describe SSWaffles::MongoBucket, :integration => true do
@@ -191,6 +205,7 @@ describe SSWaffles::MongoBucket, :integration => true do
   it_behaves_like :WritableBucket
   it_behaves_like :MetadataBucket
   it_behaves_like :EncodingBucket
+  it_behaves_like :PermissionBucket
 end
 
 describe SSWaffles::MemoryBucket do
@@ -201,6 +216,7 @@ describe SSWaffles::MemoryBucket do
   it_behaves_like :ReadableBucket
   it_behaves_like :WritableBucket
   it_behaves_like :EncodingBucket
+  it_behaves_like :PermissionBucket
 end
 
 describe SSWaffles::AmazonreadonlyBucket do
