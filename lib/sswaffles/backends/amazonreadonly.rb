@@ -6,6 +6,7 @@ module SSWaffles
     def initialize(name, storage)
       super
       @s3bucket = storage.s3.buckets[name]
+      warmup(@s3bucket.objects.map &:key)
     end
 
     def object_read obj
