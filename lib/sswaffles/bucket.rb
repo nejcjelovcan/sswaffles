@@ -22,6 +22,7 @@ module SSWaffles
     def object_exists? obj; raise 'Not implemented'; end
     def object_last_modified obj; raise 'Not implemented'; end
     def object_metadata obj, key=nil; raise 'Not implemented'; end
+    def object_versions obj; raise 'Not implemented'; end
 
     def object_public_url obj; "sswaffles://#{name}/#{obj.key}"; end
     def object_acl obj; AccessControlList.new; end

@@ -231,3 +231,19 @@ describe SSWaffles::MongoBucket, :integration => true do
   it_behaves_like :EncodingBucket
   it_behaves_like :PermissionBucket
 end
+
+describe SSWaffles::MongogridfsBucket, :integration => true do
+  before(:all) do
+    @storage = SSWaffles::Storage.new :Mongogridfs, db: 'sswaffles_'
+  end
+
+  after(:all) do
+    @storage.global[:client].drop_database('sswaffles_bucket')
+  end
+
+  it_behaves_like :ReadableBucket
+  it_behaves_like :WritableBucket
+  it_behaves_like :MetadataBucket
+  it_behaves_like :EncodingBucket
+  it_behaves_like :PermissionBucket
+end
